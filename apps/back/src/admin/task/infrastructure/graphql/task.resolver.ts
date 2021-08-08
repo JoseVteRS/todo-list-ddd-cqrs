@@ -83,9 +83,6 @@ export class TaskResolver {
         @Args('input', { type: () => TaskUpdateInput })
         input: Partial<TaskUpdateInput>
     ): Promise<boolean> {
-
-        console.log('Update Resolver: ', { taskId, input })
-
         await this.commandBus.execute(
             new TaskUpdateCommand(taskId, input.title, input.description)
         );

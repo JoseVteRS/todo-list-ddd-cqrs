@@ -22,7 +22,6 @@ export class TaskUpdateUseCase implements IUseCase {
         description: VODescription
     ) {
         const taskById = await this.taskRepository.findById(taskId);
-        console.log('Task from use case', { taskById })
         if (!taskById) throw new Error('Task no found');
 
 

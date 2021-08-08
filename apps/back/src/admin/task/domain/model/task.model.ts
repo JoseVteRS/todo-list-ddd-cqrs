@@ -5,6 +5,7 @@ import { VOTitle } from '../value-objects/title.vo';
 import { VODescription } from '../value-objects/description.vo';
 import { TaskCanNotFinishableException } from '../exceptions/task-cant-finishable.exception';
 import { TaskCantMarkAsNotFinishable } from '../exceptions/task-cant-not-finishable.exception';
+import { TaskNothingToUpdateException } from '../exceptions/task-nothing-to-update.exception';
 
 
 
@@ -119,7 +120,7 @@ export class TaskModel extends AggregateRoot {
             description: description.value
         };
         if (JSON.stringify(oldData) === JSON.stringify(newData))
-            throw new Error('TaskNothingToUpdateException');
+            throw new TaskNothingToUpdateException();
     }
 
 
