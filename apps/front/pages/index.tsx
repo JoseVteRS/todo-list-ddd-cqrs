@@ -1,98 +1,139 @@
-import styles from './index.module.css';
+import TaskList from '../components/Tasks/task-list';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { gql, useMutation } from '@apollo/client';
+import MainLayout from '../layouts/main-layout';
 
-export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
+const TASK_UPDATE = gql`
+  mutation TaskUpdate($taskId: ID!, $input: TaskUpdateInput! ){
+    task_update(taskId: $taskId, input: $input)
+  }
+`;
+
+export const Index = () => {
+  /**
+   * useMutation
    */
+  const [task_update] = useMutation(TASK_UPDATE);
+
+  /**
+   * Schema validation
+   */
+  const schemaValidacion = Yup.object({
+    title: Yup.string().required('El título es obligatorio'),
+    description: Yup.string().max(150).required('El título es obligatorio'),
+  });
+
+  /**
+   *Function to update a task
+   * @param data
+   */
+  //TODO: Fix any
+  const updateDataTask = async (data: any) => {
+    const { title, description } = data;
+
+    //TODO: This ID will get from query params
+    const taskId = 'c7ce7ccb-207e-4609-aef3-f749d91b6cfe';
+    try {
+      const { data } = await task_update({
+        variables: {
+          taskId,
+          input: {
+            title,
+            description,
+          },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <h2>Resources &amp; Tools</h2>
-      <p>Thank you for using and showing some ♥ for Nx.</p>
-      <div className="flex github-star-container">
-        <a
-          href="https://github.com/nrwl/nx"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {' '}
-          If you like Nx, please give it a star:
-          <div className="github-star-badge">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/star.svg" className="material-icons" alt="" />
-            Star
-          </div>
-        </a>
-      </div>
-      <p>Here are some links to help you get started.</p>
-      <ul className="resources">
-        <li className="col-span-2">
-          <a
-            className="resource flex"
-            href="https://egghead.io/playlists/scale-react-development-with-nx-4038"
-          >
-            Scale React Development with Nx (Course)
-          </a>
-        </li>
-        <li className="col-span-2">
-          <a
-            className="resource flex"
-            href="https://nx.dev/latest/react/tutorial/01-create-application"
-          >
-            Interactive tutorial
-          </a>
-        </li>
-        <li className="col-span-2">
-          <a className="resource flex" href="https://nx.app/">
-            <svg
-              width="36"
-              height="36"
-              viewBox="0 0 120 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+    <MainLayout>
+      <h2 className="title">TODO LIST</h2>
+      <p className="dark:text-gray-300">Sample project to learn DDD and CQRS</p>
+      <hr />
+      <TaskList />
+      <Formik
+        validationSchema={schemaValidacion}
+        enableReinitialize
+        initialValues={{ title: 'hola', description: 'hola k ase' }}
+        onSubmit={(data) => {
+          updateDataTask(data);
+        }}
+      >
+        {(props) => {
+          // console.log(props);
+          return (
+            <form
+              className="bg-white shadow-md px-8 pt-6 pb-8 mb-4"
+              onSubmit={props.handleSubmit}
             >
-              <path
-                d="M120 15V30C103.44 30 90 43.44 90 60C90 76.56 76.56 90 60 90C43.44 90 30 103.44 30 120H15C6.72 120 0 113.28 0 105V15C0 6.72 6.72 0 15 0H105C113.28 0 120 6.72 120 15Z"
-                fill="#0E2039"
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="title"
+                >
+                  Title
+                </label>
+
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="title"
+                  type="text"
+                  placeholder="Task title"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.title}
+                />
+              </div>
+
+              {props.touched.title && props.errors.title ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{props.errors.title}</p>
+                </div>
+              ) : null}
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="description"
+                >
+                  Description
+                </label>
+
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="description"
+                  type="text"
+                  placeholder="Description task"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.description}
+                />
+              </div>
+
+              {props.touched.description && props.errors.description ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{props.errors.description}</p>
+                </div>
+              ) : null}
+
+              <input
+                type="submit"
+                className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
+                value="Update task"
               />
-              <path
-                d="M120 30V105C120 113.28 113.28 120 105 120H30C30 103.44 43.44 90 60 90C76.56 90 90 76.56 90 60C90 43.44 103.44 30 120 30Z"
-                fill="white"
-              />
-            </svg>
-            <span className="gutter-left">Nx Cloud</span>
-          </a>
-        </li>
-      </ul>
-      <h2>Next Steps</h2>
-      <p>Here are some things you can do with Nx.</p>
-      <details open>
-        <summary>Add UI library</summary>
-        <pre>{`# Generate UI lib
-nx g @nrwl/react:lib ui
-
-# Add a component
-nx g @nrwl/react:component xyz --project ui`}</pre>
-      </details>
-      <details>
-        <summary>View dependency graph</summary>
-        <pre>{`nx dep-graph`}</pre>
-      </details>
-      <details>
-        <summary>Run affected commands</summary>
-        <pre>{`# see what's been affected by changes
-nx affected:dep-graph
-
-# run tests for current changes
-nx affected:test
-
-# run e2e tests for current changes
-nx affected:e2e
-`}</pre>
-      </details>
-    </div>
+            </form>
+          );
+        }}
+      </Formik>
+       
+    </MainLayout>
   );
-}
+};
 
 export default Index;

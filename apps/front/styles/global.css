@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+
+.title {
+  @apply text-xl font-bold dark:text-gray-200;
+}
+
+.task-title {
+  @apply text-2xl dark:text-gray-200;
+}
+
+@tailwind utilities;

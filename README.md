@@ -21,7 +21,7 @@ Below list the tecnologies used in this project (in progress).
 - TailwindCSS for styles
 
 # TODO
-## Backend
+## 🔧 Backend
 - [x] CRUD Tasks
   - [x] Create a task
   - [x] Update a task
@@ -31,8 +31,7 @@ Below list the tecnologies used in this project (in progress).
   - [x] Mark a task as not finished
 - [ ] CRUD Users
 - [ ] Authentication
-## Frontend
+## 🎨 Frontend
 - [ ] Form for create Tasks (only design for the moment)
-- [ ] List Task (only design for the moment)
-- [ ] List Task (only design for the moment)
+- [ ] List Task (only design for the moment) [work in progress]
 
