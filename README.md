@@ -7,7 +7,7 @@ Basic example using DDD and CQRS architecture for training. Using MongoDB as dat
 ## Teconlogies
 
 ### Project generator (monorepo)
-
+Cancel changes
 - NX
 
 ### Backend
@@ -17,4 +17,3 @@ Basic example using DDD and CQRS architecture for training. Using MongoDB as dat
 
 ### Frontend
 - NextJS as React framework
-# todo-list-ddd-cqrs
