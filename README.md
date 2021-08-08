@@ -18,6 +18,7 @@ Below list the tecnologies used in this project (in progress).
 
 ### Frontend
 - NextJS as React framework
+- TailwindCSS for styles
 
 # TODO
 ## Backend

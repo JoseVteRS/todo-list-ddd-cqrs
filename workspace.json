@@ -50,6 +50,57 @@
         }
       }
     },
+    "front": {
+      "root": "apps/front",
+      "sourceRoot": "apps/front",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/front",
+            "outputPath": "dist/apps/front"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "front:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "front:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "front:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/front"],
+          "options": {
+            "jestConfig": "apps/front/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/front/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
     "shared-kernel": {
       "root": "libs/shared-kernel",
       "sourceRoot": "libs/shared-kernel/src",
@@ -75,5 +126,18 @@
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "back"
+  "defaultProject": "back",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  }
 }

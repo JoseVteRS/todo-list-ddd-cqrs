@@ -22,6 +22,9 @@
     "back": {
       "tags": []
     },
+    "front": {
+      "tags": []
+    },
     "shared-kernel": {
       "tags": []
     }

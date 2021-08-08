@@ -1,3 +1,7 @@
 module.exports = {
-  projects: ['<rootDir>/apps/back', '<rootDir>/libs/shared-kernel'],
+  projects: [
+    '<rootDir>/apps/back',
+    '<rootDir>/libs/shared-kernel',
+    '<rootDir>/apps/front',
+  ],
 };
