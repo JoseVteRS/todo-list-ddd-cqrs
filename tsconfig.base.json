@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@back/*": ["apps/back/src/*"],
+      "@shared-kernel/*": ["libs/shared-kernel/src/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
