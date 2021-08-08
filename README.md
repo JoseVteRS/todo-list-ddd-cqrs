@@ -1,19 +1,34 @@
 # TODO LIST (DDD with CQRS)
 
-## Basic example DDD and CQRS with MongoDB and GrapqhQL
+## Proposal
 
-Basic example using DDD and CQRS architecture for training. Using MongoDB as database and GraphQL as query language
+Training DDD and CQRS pattern. For this I decided to develope a simple TODO List.
+In this project have as database MongoDB and GraphQL as query language
 
 ## Teconlogies
+Below list the tecnologies used in this project (in progress).
 
 ### Project generator (monorepo)
-Cancel changes
 - NX
 
 ### Backend
 - NestJS
 - MongoDB (Database)
-- Graphql (Query Language)
+- GraphQL (Query Language)
 
 ### Frontend
 - NextJS as React framework
+
+# TODO
+## Backend
+- [x] CRUD Tasks
+  - [x] Create a task
+  - [x] Update a task
+  - [x] Delete a task
+  - [x] Mark a task as finished
+  - [x] Mark a task as not finished 
+- [ ] CRUD Users
+- [ ] Authentication
+## Frontend
+- [ ] Form for create Tasks (only design for the moment)
+- [ ] List Task (only design for the moment)
