@@ -1,4 +1,4 @@
-# TODO LIST (DDD with CQRS)
+# TODO LIST
 
 ## Proposal
 
@@ -8,17 +8,17 @@ In this project have as database MongoDB and GraphQL as query language
 ## Teconlogies
 Below list the tecnologies used in this project.
 
-### Project generator (monorepo)
-- NX
+### Project generator
+- [NX](https://nx.dev/)
 
 ### Backend
-- NestJS
-- MongoDB as Database
-- GraphQL as Query Language
+- [NestJS](https://nestjs.com/)
+- [MongoDB](https://www.mongodb.com/es) as Database
+- [GraphQL](https://graphql.org/) as Query Language
 
 ### Frontend
-- NextJS as React framework
-- TailwindCSS for styles
+- [NextJS](https://nextjs.org/) as React framework
+- [TailwindCSS](https://tailwindcss.com/) for styles
 
 # TODO
 ## 🔧 Backend
