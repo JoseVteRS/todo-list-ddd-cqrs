@@ -6,15 +6,15 @@ Training DDD and CQRS pattern. For this I decided to develope a simple TODO List
 In this project have as database MongoDB and GraphQL as query language
 
 ## Teconlogies
-Below list the tecnologies used in this project (in progress).
+Below list the tecnologies used in this project.
 
 ### Project generator (monorepo)
 - NX
 
 ### Backend
 - NestJS
-- MongoDB (Database)
-- GraphQL (Query Language)
+- MongoDB as Database
+- GraphQL as Query Language
 
 ### Frontend
 - NextJS as React framework
