@@ -32,6 +32,5 @@ Below list the tecnologies used in this project (in progress).
 - [ ] CRUD Users
 - [ ] Authentication
 ## 🎨 Frontend
-- [ ] Form for create Tasks (only design for the moment)
-- [ ] List Task (only design for the moment) [work in progress]
-
+- [ ] Form for create Tasks. Only design for the moment
+- [ ] List Task. Only design for the moment. Work in progress
