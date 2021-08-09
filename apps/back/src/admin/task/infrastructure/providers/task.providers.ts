@@ -12,6 +12,8 @@ import { TaskMarkNotFinishCommandHandler } from '../../application/commands/task
 import { TaskMarkNotFinishUseCase } from '../../application/use-cases/write/task-mark-not-finish.usecase';
 import { TaskUpdateCommandHandler } from '../../application/commands/task-update.handler';
 import { TaskUpdateUseCase } from '../../application/use-cases/write/task-update.usecase';
+import { TaskListQueryHandler } from "../../application/queries/task-list.handler";
+import { TaskListUseCase } from "../../application/use-cases/read/task-list.usecase";
 
 
 
@@ -21,7 +23,7 @@ const Repositories: Provider[] = [
 ];
 
 const QueryHandlers: Provider[] = [
-
+    TaskListQueryHandler,
 ];
 
 const CommandHandlers: Provider[] = [
@@ -43,6 +45,7 @@ const UseCases: Provider[] = [
     TaskMarkAsFinishUseCase,
     TaskMarkNotFinishUseCase,
     TaskUpdateUseCase,
+    TaskListUseCase,
 ];
 
 const ApplicationServices: Provider[] = [];

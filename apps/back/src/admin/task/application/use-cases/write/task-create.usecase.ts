@@ -28,7 +28,7 @@ export class TaskCreateUseCase implements IUseCase {
         if(planById) throw new Error('TaskIdAlreadyExists');
 
         const task = TaskModel.create(taskId, title, description, is_finish);
-
+        console.log(task)
         await this.taskRepository.create(task);
 
     }

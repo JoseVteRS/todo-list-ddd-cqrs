@@ -1,3 +1,4 @@
+import { VOPositiveInt } from './../../../../../../../libs/shared-kernel/src/common/domain/value-objects/positive-int.vo';
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ITaskRepository } from '../../domain/repository/task-repository.interface';
@@ -64,6 +65,14 @@ export class TaskMongoRepository implements ITaskRepository {
         if (!existingTask) throw new TaskNotFoundException();
 
         return this.toDomain(existingTask);
+    }
+
+    async findAll(): Promise<TaskModel[]> {
+        const persistentTasks = await this.taskMongoModel
+            .find()
+            .exec();
+        console.log({ persistentTasks })
+        return persistentTasks.map((task) => this.toDomain(task));
     }
 
     /**

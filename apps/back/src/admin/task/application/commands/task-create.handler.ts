@@ -19,7 +19,7 @@ export class TaskCreateCommandHandler implements ICommandHandler<TaskCreateComma
 
     async execute(command: TaskCreateCommand) {
         return this.taskCreateUseCase.execute(
-            VOUuid.create(),
+            await VOUuid.create(),
             new VOTitle(command.title),
             command.description ? new VODescription(command.description) : null,
             command.is_finish ? new VOBoolean(command.is_finish) : null,

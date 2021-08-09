@@ -68,7 +68,6 @@ export class TaskModel extends AggregateRoot {
     public delete(
         taskId: VOUuid
     ) {
-        this.notFound(taskId);
         this._assertIsDeletable();
 
         const task = new TaskModel(taskId, this.title, this.description, this.is_finish);

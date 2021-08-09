@@ -7,7 +7,11 @@ import { PrimitiveValueObject } from '../classes/value-objects/primitive-value-o
  * Uuid value object
  */
 export class VOUuid extends PrimitiveValueObject<string> {
-  static id: string = uuid();
+  private _id: string;
+
+  get id(): string {
+    return this._id;
+  }
 
   /**
    * Creates a new UUID value object
@@ -17,8 +21,8 @@ export class VOUuid extends PrimitiveValueObject<string> {
     return uuid.test(value);
   }
 
-  public static create(): VOUuid {
-    return new VOUuid(this.id);
+  public static async create(): Promise<VOUuid> {
+    return new VOUuid(uuid().toString());
   }
 
 }

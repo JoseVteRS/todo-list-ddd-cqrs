@@ -1,6 +1,8 @@
+import { TaskListQuery } from './../../application/queries/task-list.query';
+import { VOPositiveInt } from './../../../../../../../libs/shared-kernel/src/common/domain/value-objects/positive-int.vo';
 import { TaskMarkNotFinishCommand } from './../../application/commands/task-mark-not-finish.command';
-import { CommandBus } from "@nestjs/cqrs";
-import { Args, ID, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { Args, ID, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { TaskCreateInput } from "./inputs/task-create.input";
 import { TaskCreateCommand } from '../../application/commands/task-create.command';
 import { VOUuid } from '../../../../../../../libs/shared-kernel/src/common/domain/value-objects/uuid.vo';
@@ -8,6 +10,8 @@ import { TaskDeleteCommand } from '../../application/commands/task-delete.comman
 import { TaskMarkFinishCommand } from '../../application/commands/task-mark-finish.command';
 import { TaskUpdateInput } from './inputs/task-update.input';
 import { TaskUpdateCommand } from '../../application/commands/task-update.command';
+import { Task } from './types/task.gqltype';
+import { TaskModel } from '../../domain/model/task.model';
 
 
 
@@ -17,12 +21,22 @@ import { TaskUpdateCommand } from '../../application/commands/task-update.comman
 export class TaskResolver {
 
     constructor(
-        private readonly commandBus: CommandBus
+        private readonly commandBus: CommandBus,
+        private readonly queryBus: QueryBus,
     ) { }
 
     @Query(() => String)
     gql_test(): string {
         return 'Grapqh running'
+    }
+
+    @Query(() => Task, { nullable: true })
+    async task_list(): Promise<TaskModel[] | null> {
+        const taskList = await this.queryBus.execute(
+            new TaskListQuery()
+        );
+        console.log({taskList})
+        return taskList;
     }
 
 
@@ -48,7 +62,7 @@ export class TaskResolver {
         taskId: VOUuid
     ): Promise<boolean> {
         await this.commandBus.execute(
-            new TaskDeleteCommand(taskId.value)
+            new TaskDeleteCommand(taskId)
         );
         return true;
     }
