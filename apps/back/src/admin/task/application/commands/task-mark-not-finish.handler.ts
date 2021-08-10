@@ -10,8 +10,6 @@ export class TaskMarkNotFinishCommandHandler implements ICommandHandler<TaskMark
     constructor(private readonly taskMarkNotFinish: TaskMarkNotFinishUseCase) { }
 
     execute(command: TaskMarkNotFinishCommand) {
-    console.log("🚀 ~ file: task-mark-not-finish.handler.ts ~ line 13 ~ TaskMarkNotFinishCommandHandler ~ execute ~ command", command)
-
         return this.taskMarkNotFinish.execute(
            command.taskId
         );
