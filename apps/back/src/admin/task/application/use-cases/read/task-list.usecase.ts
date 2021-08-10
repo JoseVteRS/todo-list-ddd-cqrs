@@ -1,3 +1,7 @@
+import { VOBoolean } from './../../../../../../../../libs/shared-kernel/src/common/domain/value-objects/boolean.vo';
+import { VODescription } from './../../../domain/value-objects/description.vo';
+import { VOTitle } from './../../../domain/value-objects/title.vo';
+import { VOUuid } from './../../../../../../../../libs/shared-kernel/src/common/domain/value-objects/uuid.vo';
 import { Injectable } from '@nestjs/common';
 import { InjectTaskRepository } from '@back/admin/task/domain/repository/task-repository.ditoken';
 import { ITaskRepository } from '@back/admin/task/domain/repository/task-repository.interface';
@@ -15,6 +19,6 @@ export class TaskListUseCase implements IUseCase {
     ) { }
 
     async execute() {
-        await this.taskRepository.findAll()
+        return await this.taskRepository.findAll();
     }
 }

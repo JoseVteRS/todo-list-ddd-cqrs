@@ -67,12 +67,18 @@ export class TaskMongoRepository implements ITaskRepository {
         return this.toDomain(existingTask);
     }
 
+    /**
+     * Find and list tasks
+     * @returns TaskModel array
+     */
     async findAll(): Promise<TaskModel[]> {
         const persistentTasks = await this.taskMongoModel
             .find()
             .exec();
-        console.log({ persistentTasks })
-        return persistentTasks.map((task) => this.toDomain(task));
+        const toDomainTask = persistentTasks.map((task) => {
+            return this.toDomain(task)
+        });
+        return toDomainTask;
     }
 
     /**
@@ -83,9 +89,6 @@ export class TaskMongoRepository implements ITaskRepository {
     async update(task: TaskModel): Promise<boolean> {
         const persistentTask = this.toPersistence(task);
         const { _id, ...rest } = persistentTask;
-
-        console.log('update mongo repository', { persistentTask })
-        console.log('update mongo repository', { task })
 
         await this.taskMongoModel
             .findByIdAndUpdate(_id, rest)

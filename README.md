@@ -28,7 +28,6 @@ Below list the tecnologies used in this project.
   - [x] Delete a task
   - [x] Mark a task as finished
   - [x] Mark a task as not finished
-  - [x] Mark a task as not finished
 - [ ] CRUD Users
 - [ ] Authentication
 ## 🎨 Frontend

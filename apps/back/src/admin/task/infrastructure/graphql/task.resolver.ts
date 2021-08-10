@@ -30,13 +30,13 @@ export class TaskResolver {
         return 'Grapqh running'
     }
 
-    @Query(() => Task, { nullable: true })
+    /**
+     * Find and list Tasks
+     * @returns TaskModel array or null
+     */
+    @Query(() => [Task])
     async task_list(): Promise<TaskModel[] | null> {
-        const taskList = await this.queryBus.execute(
-            new TaskListQuery()
-        );
-        console.log({taskList})
-        return taskList;
+        return await this.queryBus.execute(new TaskListQuery());
     }
 
 
