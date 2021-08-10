@@ -2,7 +2,7 @@
 
 ## Proposal
 
-Training DDD and CQRS pattern. For this I decided to develope a simple TODO List.
+To training DDD and CQRS pattern. For this I decided to develope a simple TODO List.
 In this project have as database MongoDB and GraphQL as query language
 
 ## Teconlogies
@@ -28,8 +28,11 @@ Below list the tecnologies used in this project.
   - [x] Delete a task
   - [x] Mark a task as finished
   - [x] Mark a task as not finished
+- [ ] List tasks paginated
 - [ ] CRUD Users
 - [ ] Authentication
 ## 🎨 Frontend
 - [ ] Form for create Tasks. Only design for the moment
-- [ ] List Task. Only design for the moment. Work in progress
+- [x] List Task. Only design for the moment. Work in progress
+- [ ] Search tasks
+- [ ] List tasks paginated

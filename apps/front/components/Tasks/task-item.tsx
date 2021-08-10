@@ -1,17 +1,17 @@
 import React from 'react';
 import TaskFinishButton from './task-finish-buttom';
 
-const TaskItem = ({ isFinished }) => {
+const TaskItem = ({ task }) => {
   return (
-    <div className={`dark:text-gray-300 my-2 grid grid-cols-2 dark:bg-gray-500 p-2 rounded`}>
+    <div
+      className={'p-3 flex items-center justify-between bg-gray-900 rounded-md shadow-md'}
+    >
       <div>
-        <p className={`task-title ${isFinished ? 'line-through dark:text-gray-200' : ''}`}>
-          Poner la lavadora
-        </p>
-        <p className={` text-xs text${isFinished ? 'line-through dark:text-gray-200' : ''}`}>Descripcion larga de la tarea</p>
+        <p className='dark:text-gray-200 text-lg'>{task.title}</p>
+        <p className='dark:text-gray-400 text-xs'>{task.description}</p>
       </div>
 
-      <TaskFinishButton isFinished={isFinished} />
+      <TaskFinishButton isFinished={task.is_finish} />
     </div>
   );
 };

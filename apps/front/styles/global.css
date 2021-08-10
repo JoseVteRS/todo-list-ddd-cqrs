@@ -9,4 +9,12 @@
   @apply text-2xl dark:text-gray-200;
 }
 
+.button-green {
+  @apply p-2 w-auto text-xs dark:text-gray-200 dark:bg-green-600 dark:hover:bg-green-700 rounded shadow
+}
+
+.button-blue {
+  @apply p-2 w-auto text-xs dark:text-gray-200 dark:bg-blue-600 dark:hover:bg-blue-700 rounded shadow
+}
+
 @tailwind utilities;
