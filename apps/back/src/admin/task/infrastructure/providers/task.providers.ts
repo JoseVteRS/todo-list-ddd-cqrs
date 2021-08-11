@@ -14,6 +14,8 @@ import { TaskUpdateCommandHandler } from '../../application/commands/task-update
 import { TaskUpdateUseCase } from '../../application/use-cases/write/task-update.usecase';
 import { TaskListQueryHandler } from "../../application/queries/task-list.handler";
 import { TaskListUseCase } from "../../application/use-cases/read/task-list.usecase";
+import { TaskFindByIdQueryHandler } from "../../application/queries/task-find-by-id.handler";
+import { TaskFindByIdUseCase } from "../../application/use-cases/read/task-find-by-id.usecase";
 
 
 
@@ -24,6 +26,7 @@ const Repositories: Provider[] = [
 
 const QueryHandlers: Provider[] = [
     TaskListQueryHandler,
+    TaskFindByIdQueryHandler,
 ];
 
 const CommandHandlers: Provider[] = [
@@ -46,6 +49,7 @@ const UseCases: Provider[] = [
     TaskMarkNotFinishUseCase,
     TaskUpdateUseCase,
     TaskListUseCase,
+    TaskFindByIdUseCase,
 ];
 
 const ApplicationServices: Provider[] = [];

@@ -15,22 +15,23 @@ const TASKS_LIST = gql`
 
 const TaskList = () => {
   const { data, error, loading } = useQuery(TASKS_LIST);
-  if (loading) return 'Cargando...';
-  console.log(data);
+  if (loading) return (<p className='title'>'Cargando...'</p>);
+  if (error) return (<p className='title'>'Error...'</p>);
+
 
   const { task_list } = data;
 
   return (
-    <div className='w-1/2 mx-auto'>
+    <div className="px-8">
       {task_list.length === 0 ? (
-        <p className="mt-5 text-center text-2xl">No hay tareas aún</p>
+        <p className="mt-5 text-center dark:text-gray-100 text-2xl">No hay tareas aún</p>
       ) : (
         task_list.map((task) => {
           return (
-            <div className='my-4'>
-              <TaskItem key={task._id} task={task} />
+            <div key={task._id} className="my-4">
+              <TaskItem task={task} />
             </div>
-          )
+          );
         })
       )}
     </div>

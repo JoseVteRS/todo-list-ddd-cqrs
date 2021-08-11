@@ -1,3 +1,4 @@
+import { TaskFindByIdQuery } from './../../application/queries/task-find-by-id.query';
 import { TaskListQuery } from './../../application/queries/task-list.query';
 import { VOPositiveInt } from './../../../../../../../libs/shared-kernel/src/common/domain/value-objects/positive-int.vo';
 import { TaskMarkNotFinishCommand } from './../../application/commands/task-mark-not-finish.command';
@@ -37,6 +38,14 @@ export class TaskResolver {
     @Query(() => [Task])
     async task_list(): Promise<TaskModel[] | null> {
         return await this.queryBus.execute(new TaskListQuery());
+    }
+
+    @Query(() => Task)
+    async task_find_by_id(
+        @Args('taskId', { type: () => ID })
+        taskId: VOUuid
+    ): Promise<TaskModel | null> {
+        return await this.queryBus.execute(new TaskFindByIdQuery(taskId))
     }
 
 

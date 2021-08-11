@@ -15,7 +15,6 @@ export class TaskDeleteCommandHandler implements ICommandHandler<TaskDeleteComma
     ) { }
 
     async execute(command: TaskDeleteCommand) {
-
         return await this.taskDeleteUseCase.execute(
             command.taskId
         );
