@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import TaskCreateForm from '../components/Forms/task-create-form';
+import TaskUpdateForm from '../components/Forms/task-update-form';
 import TaskList from '../components/Tasks/task-list';
 import PlusIcon from '../components/ui/Icons/icon-plus';
 import Modal from '../components/ui/Modal/Modal';
@@ -19,6 +20,15 @@ export const Index = () => {
       >
         <TaskCreateForm setState={setStateModalCreate} />
       </Modal>
+
+      <p className="bg-white shadow-lg text-gray-800 font-bold p-2 rounded">
+        {new Date().toLocaleString('es-ES', {
+          timeZone: 'UTC',
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        })}
+      </p>
 
       <h2 className="title">TODO LIST</h2>
       <p className="dark:text-gray-300">Sample project to learn DDD and CQRS</p>

@@ -1,8 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import TaskUpdateForm from '../Forms/task-update-form';
 import CheckIcon from '../ui/Icons/icon-check';
+import PencilIcon from '../ui/Icons/icon-pencil';
 import TrashIcon from '../ui/Icons/icon-trash';
+import Modal from '../ui/Modal/Modal';
 import TaskFinishButton from './task-finish-buttom';
 
 const TASK_LIST = gql`
@@ -35,6 +38,8 @@ const TASK_DELETE = gql`
 `;
 
 const TaskItem = ({ task }) => {
+  const [stateModalUpdate, setStateModalUpdate] = useState(false);
+
   /**
    * Mark task as finished
    */
@@ -79,7 +84,6 @@ const TaskItem = ({ task }) => {
           taskId: task._id,
         },
       });
-      console.log('marcada', task._id);
 
       toast.success('Tarea finalizada');
     } catch (error) {
@@ -95,7 +99,6 @@ const TaskItem = ({ task }) => {
           taskId: task._id,
         },
       });
-      console.log('marcada', task._id);
 
       toast.success('Tarea marcada como pendiente');
     } catch (error) {
@@ -120,45 +123,66 @@ const TaskItem = ({ task }) => {
   };
 
   return (
-    <div
-      className={`p-3 flex items-center justify-between ${
-        task.is_finish ? 'bg-gray-700' : 'bg-gray-900'
-      }  rounded-md shadow-lg`}
-    >
-      <div>
-        {!task.is_finish ? (
-          <>
-            <p className="dark:text-gray-200 text-lg">{task.title}</p>
-            <p className="dark:text-gray-400 text-xs">{task.description}</p>
-          </>
-        ) : (
-          <>
-            <p className="dark:text-gray-400 text-lg line-through">
-              {task.title}
-            </p>
-            <p className="dark:text-gray-400 text-xs line-through">
-              {task.description}
-            </p>
-          </>
-        )}
-      </div>
+    <>
+      <Modal
+        state={stateModalUpdate}
+        setState={setStateModalUpdate}
+        title={`Modificar tarea`}
+        mostrarHeader={true}
+      >
+        <TaskUpdateForm setState={setStateModalUpdate} task={task} />
+      </Modal>
 
-      <div className="w-1/2 flex justify-end">
-        <div className="flex justify-arround items-center">
-          <TaskFinishButton
-            isFinished={task.is_finish}
-            markTaskFinish={taskMarkAsFinished}
-            markTaskNotFinish={taskMarkAsNotFinished}
-          />
-          <button
-            onClick={taskDelete}
-            className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1 w-8 h-8 mx-1"
-          >
-            <TrashIcon />
-          </button>
+      <div
+        className={`overflow-hidden relative p-3 flex items-center justify-between ${
+          task.is_finish ? 'bg-gray-700' : 'bg-gray-900'
+        }  rounded-md shadow-lg ${
+          task.is_finish
+            ? 'border-l-4 border-green-500'
+            : 'border-l-4 border-yellow-500'
+        }`}
+      >
+        <div className="">
+          {!task.is_finish ? (
+            <>
+              <p className="dark:text-gray-200 text-lg">{task.title}</p>
+              <p className="dark:text-gray-400 text-xs">{task.description}</p>
+            </>
+          ) : (
+            <>
+              <p className="dark:text-gray-400 text-lg line-through">
+                {task.title}
+              </p>
+              <p className="dark:text-gray-400 text-xs line-through">
+                {task.description}
+              </p>
+            </>
+          )}
+        </div>
+
+        <div className="w-1/2 flex justify-end">
+          <div className="flex justify-arround items-center">
+            <TaskFinishButton
+              isFinished={task.is_finish}
+              markTaskFinish={taskMarkAsFinished}
+              markTaskNotFinish={taskMarkAsNotFinished}
+            />
+            <button
+              onClick={() => setStateModalUpdate(true)}
+              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-1 w-8 h-8 mx-1"
+            >
+              <PencilIcon />
+            </button>
+            <button
+              onClick={taskDelete}
+              className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1 w-8 h-8 mx-1"
+            >
+              <TrashIcon />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

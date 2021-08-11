@@ -18,7 +18,7 @@
 }
 
 .overlay {
-  @apply w-screen h-screen fixed top-0 left-0 bg-gray-900 bg-opacity-90 p-8 flex items-center justify-center;
+  @apply w-screen h-screen fixed top-0 left-0 bg-gray-900 bg-opacity-90 p-8 flex items-center justify-center z-50;
 }
 .modal-component {
   @apply w-1/2 dark:bg-gray-800 relative rounded-md shadow-lg p-2;

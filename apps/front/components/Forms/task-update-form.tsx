@@ -4,66 +4,66 @@ import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import toast, { Toaster } from 'react-hot-toast';
 
-/**
- * Task create mutation
- */
-const TASK_CREATE = gql`
-  mutation TaskCreate($input: TaskCreateInput!) {
-    task_create(input: $input)
+const TASK_UPDATE = gql`
+  mutation TaskUpdate($taskId: ID!, $input: TaskUpdateInput!) {
+    task_update(taskId: $taskId, input: $input)
   }
 `;
 
-const TASK_LIST = gql`
-  query TaskList {
-    task_list {
+const TASK_FIND_BY_ID = gql`
+  query TaskFindById($taskId: ID!) {
+    task_find_by_id(taskId: $taskId) {
       _id
       title
       description
-      is_finish
     }
   }
 `;
 
-const TaskCreateForm = ({ setState }) => {
-  const [task_create] = useMutation(TASK_CREATE, {
-    update(cache, { data: { task_create } }) {
-      const { task_list } = cache.readQuery({ query: TASK_LIST });
-      cache.writeQuery({
-        query: TASK_LIST,
-        data: {
-          task_list: [...task_list, task_create],
-        },
-      });
-    },
+const TaskUpdateForm = ({ task, setState }) => {
+  console.log('task from update form', task);
+
+  const [task_update] = useMutation(TASK_UPDATE, {
+    // update(cache, { data: { task_update } }) {
+    //   const { task_find_by_id } = cache.readQuery({ query: TASK_FIND_BY_ID });
+    //   cache.writeQuery({
+    //     query: TASK_FIND_BY_ID,
+    //     variables: {
+    //         taskId: task._id
+    //     },
+    //     data: {
+    //       task_find_by_id: [...task_find_by_id, task_update],
+    //     },
+    //   });
+    // },
   });
 
-  const taskCreateTask = async (data) => {
+  const taskUpdate = async (data) => {
     const { title, description } = data;
-
     try {
-      const { data } = await task_create({
+      const { data } = await task_update({
         variables: {
+          taskId: task._id,
           input: {
             title,
             description,
           },
         },
       });
-      toast.success('Tarea guardada correctamente');
     } catch (error) {
+      console.log(error);
       toast.error(error.message);
     }
   };
 
   return (
     <>
-
       <Formik
         validationSchema={schemaValidation()}
         enableReinitialize
-        initialValues={{ title: '', description: '' }}
+        initialValues={{ title: task.title, description: task.description }}
         onSubmit={(data) => {
-          taskCreateTask(data);
+          taskUpdate(data);
           setState(false);
         }}
       >
@@ -126,7 +126,7 @@ const TaskCreateForm = ({ setState }) => {
               <input
                 type="submit"
                 className="bg-green-500 rounded w-full mt-5 p-2 text-white uppercase font-bold hover:bg-green-600"
-                value="Guardar tarea"
+                value="Actualizar tarea"
               />
             </form>
           );
@@ -145,4 +145,4 @@ const schemaValidation = () => {
   });
 };
 
-export default TaskCreateForm;
+export default TaskUpdateForm;
