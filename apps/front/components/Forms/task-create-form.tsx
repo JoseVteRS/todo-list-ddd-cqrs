@@ -1,37 +1,19 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { gql, useMutation } from '@apollo/client';
-import toast, { Toaster } from 'react-hot-toast';
+import { useMutation } from '@apollo/client';
+import toast from 'react-hot-toast';
 
-/**
- * Task create mutation
- */
-const TASK_CREATE = gql`
-  mutation TaskCreate($input: TaskCreateInput!) {
-    task_create(input: $input)
-  }
-`;
-
-const TASK_LIST = gql`
-  query TaskList {
-    task_list {
-      _id
-      title
-      description
-      is_finish
-    }
-  }
-`;
+import { task_list, task_create } from '@next-shared/lib/graphql/task.graphql';
 
 const TaskCreateForm = ({ setState }) => {
-  const [task_create] = useMutation(TASK_CREATE, {
+  const [taskCreateMutation] = useMutation(task_create, {
     update(cache, { data: { task_create } }) {
-      const { task_list } = cache.readQuery({ query: TASK_LIST });
+      const { task_list: taskList } = cache.readQuery({ query: task_list });
       cache.writeQuery({
-        query: TASK_LIST,
+        query: task_list,
         data: {
-          task_list: [...task_list, task_create],
+          task_list: [...taskList, task_create],
         },
       });
     },
@@ -41,7 +23,7 @@ const TaskCreateForm = ({ setState }) => {
     const { title, description } = data;
 
     try {
-      const { data } = await task_create({
+      const { data } = await taskCreateMutation({
         variables: {
           input: {
             title,
@@ -57,7 +39,6 @@ const TaskCreateForm = ({ setState }) => {
 
   return (
     <>
-
       <Formik
         validationSchema={schemaValidation()}
         enableReinitialize
@@ -73,7 +54,7 @@ const TaskCreateForm = ({ setState }) => {
             <form className="px-8 pt-6 pb-8 mb-4" onSubmit={props.handleSubmit}>
               <div className="mb-4">
                 <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
+                  className="label"
                   htmlFor="title"
                 >
                   Título
@@ -99,7 +80,7 @@ const TaskCreateForm = ({ setState }) => {
 
               <div className="mb-4">
                 <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
+                  className="label"
                   htmlFor="description"
                 >
                   Descriptión

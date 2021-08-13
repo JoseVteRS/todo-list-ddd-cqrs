@@ -17,19 +17,29 @@
   @apply p-2 w-auto text-xs dark:text-gray-200 dark:bg-blue-600 dark:hover:bg-blue-700 rounded shadow;
 }
 
+/* Modal */
 .overlay {
-  @apply w-screen h-screen fixed top-0 left-0 bg-gray-900 bg-opacity-90 p-8 flex items-center justify-center z-50;
+  @apply w-screen h-screen fixed top-0 left-0 dark:bg-gray-900 bg-gray-100 bg-opacity-90 p-8 flex items-center justify-center z-50;
 }
 .modal-component {
-  @apply w-1/2 dark:bg-gray-800 relative rounded-md shadow-lg p-2;
+  @apply w-1/2 dark:bg-gray-800 bg-gray-50 relative rounded-md shadow-lg p-2;
 }
 
 .button-modal__close {
   @apply absolute top-4 right-4 w-7 h-7 border-none bg-transparent cursor-pointer rounded text-blue-700;
 }
 
+/* End Modal */
+
+/* Form */
 .input-text {
-  @apply shadow appearance-none border border-gray-800 bg-gray-600 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none;
+  @apply rounded w-full py-2 px-3  appearance-none  dark:bg-gray-600 dark:text-gray-300 bg-gray-200 text-gray-800 leading-tight focus:outline-none;
 }
+
+.label {
+  @apply block dark:text-gray-400 text-gray-800 text-sm font-bold mb-2;
+}
+
+/* End Form */
 
 @tailwind utilities;

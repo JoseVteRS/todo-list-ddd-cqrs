@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@back/*": ["apps/back/src/*"],
-      "@shared-kernel/*": ["libs/shared-kernel/src/*"]
+      "@shared-kernel/*": ["libs/shared-kernel/src/*"],
+      "@next-shared/*": ["libs/next-shared/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

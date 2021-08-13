@@ -4,7 +4,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 /**
  * Mongoose user's schema definition
  */
-@Schema()
+@Schema({
+    versionKey: false,
+    timestamps: true
+})
 export class Todo {
 
     @Prop({ type: String, required: true })

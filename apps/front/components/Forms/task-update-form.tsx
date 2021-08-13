@@ -1,47 +1,30 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import toast, { Toaster } from 'react-hot-toast';
-
-const TASK_UPDATE = gql`
-  mutation TaskUpdate($taskId: ID!, $input: TaskUpdateInput!) {
-    task_update(taskId: $taskId, input: $input)
-  }
-`;
-
-const TASK_FIND_BY_ID = gql`
-  query TaskFindById($taskId: ID!) {
-    task_find_by_id(taskId: $taskId) {
-      _id
-      title
-      description
-    }
-  }
-`;
+import {
+  task_update,
+  task_list,
+} from '@next-shared/lib/graphql/task.graphql';
 
 const TaskUpdateForm = ({ task, setState }) => {
   console.log('task from update form', task);
 
-  const [task_update] = useMutation(TASK_UPDATE, {
-    // update(cache, { data: { task_update } }) {
-    //   const { task_find_by_id } = cache.readQuery({ query: TASK_FIND_BY_ID });
-    //   cache.writeQuery({
-    //     query: TASK_FIND_BY_ID,
-    //     variables: {
-    //         taskId: task._id
-    //     },
-    //     data: {
-    //       task_find_by_id: [...task_find_by_id, task_update],
-    //     },
-    //   });
-    // },
+  const [taskUpdateMutation] = useMutation(task_update, {
+    onCompleted: (data) => {
+      toast.success('Tarea actualizada');
+    },
+    refetchQueries: [task_list],
+    onError: (error: ApolloError) => {
+      toast.error(error.message || 'Error al acutalizar la tarea');
+    },
   });
 
   const taskUpdate = async (data) => {
     const { title, description } = data;
     try {
-      const { data } = await task_update({
+      const { data } = await taskUpdateMutation({
         variables: {
           taskId: task._id,
           input: {
@@ -73,7 +56,7 @@ const TaskUpdateForm = ({ task, setState }) => {
             <form className="px-8 pt-6 pb-8 mb-4" onSubmit={props.handleSubmit}>
               <div className="mb-4">
                 <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
+                  className="label"
                   htmlFor="title"
                 >
                   Título
@@ -99,7 +82,7 @@ const TaskUpdateForm = ({ task, setState }) => {
 
               <div className="mb-4">
                 <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
+                  className="label"
                   htmlFor="description"
                 >
                   Descriptión

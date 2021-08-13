@@ -6,6 +6,6 @@ export const taskMapper = (task: TaskModel): Task => {
         _id: task._id.value,
         title: task.title.value,
         description: task.description.value,
-        is_finish: task.is_finish.value
+        is_finish: task.is_finish.value,
     }
 };

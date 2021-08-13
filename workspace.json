@@ -101,6 +101,27 @@
         }
       }
     },
+    "next-shared": {
+      "root": "libs/next-shared",
+      "sourceRoot": "libs/next-shared/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/next-shared/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/next-shared"],
+          "options": {
+            "jestConfig": "libs/next-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-kernel": {
       "root": "libs/shared-kernel",
       "sourceRoot": "libs/shared-kernel/src",

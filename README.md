@@ -28,11 +28,15 @@ Below list the tecnologies used in this project.
   - [x] Delete a task
   - [x] Mark a task as finished
   - [x] Mark a task as not finished
-- [ ] List tasks paginated
+  - [ ] List tasks paginated
 - [ ] CRUD Users
+  - [x] Create a user
+  - [x] Update a user
+  - [x] Delete a user
 - [ ] Authentication
 ## 🎨 Frontend
-- [ ] Form for create Tasks. Only design for the moment
-- [x] List Task. Only design for the moment. Work in progress
+- [x] Form for create Tasks.
+- [x] List Task.
 - [ ] Search tasks
 - [ ] List tasks paginated
+- [ ] Dark / light mode toggle

@@ -25,6 +25,9 @@
     "front": {
       "tags": []
     },
+    "next-shared": {
+      "tags": []
+    },
     "shared-kernel": {
       "tags": []
     }
